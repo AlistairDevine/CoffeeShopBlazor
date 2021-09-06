@@ -22,16 +22,4 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\EmployeeOverview.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\EmployeeOverview.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\EmployeeOverview.razor" />
-  </ItemGroup>
-
 </Project>

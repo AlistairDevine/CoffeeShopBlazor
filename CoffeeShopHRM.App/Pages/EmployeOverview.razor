@@ -1,9 +1,41 @@
-﻿<!--Error: can't find page-->
-@page "/counter"
+﻿@page "/employeeoverview"
 
 <h1 class="page-title">All employees</h1>
 
-
+@if (Employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Employee ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Employees)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>
+                    <td>@employee.EmployeeId</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.LastName</td>
+                    <td>
+                        <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-primary table-btn">
+                            <i class="oi oi-info"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
     protected override Task OnInitializedAsync()
@@ -22,7 +54,7 @@
     private void InitialiseJobCategories()
     {
         JobCategories = new List<JobCategory>()
-    {
+{
             new JobCategory{ JobCategoryId = 1, JobCategoryName = "Coffee research" },
             new JobCategory{ JobCategoryId = 2, JobCategoryName = "Sales" },
             new JobCategory{ JobCategoryId = 3, JobCategoryName = "Management" },
@@ -38,7 +70,7 @@
     private void InitialiseCountries()
     {
         Countries = new List<Country>
-    {
+{
             new Country { CountryId = 1, Name = "UK" },
             new Country { CountryId = 2, Name = "Belgium" },
             new Country { CountryId = 3, Name = "US" },
@@ -81,7 +113,7 @@
             BirthDate = new DateTime(1998, 3, 8),
             City = "London",
             Email = "Athna@Devine.com",
-            EmployeeId = 1,
+            EmployeeId = 2,
             FirstName = "Athna",
             LastName = "Devine",
             Gender = Gender.Female,
@@ -94,5 +126,8 @@
             ExitDate = null,
             JoinedDate = new DateTime(2021, 6, 15)
         };
+
+        Employees = new List<Employee> { employee1, employee2 };
     }
 }
+

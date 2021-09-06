@@ -1,0 +1,217 @@
+﻿@page "/employeedetail/{EmployeeId}"
+
+
+<h1 class="page-title">Details for @Employee.FirstName @Employee.LastName</h1>
+
+
+<div class="col-12 row">
+    <div class="col-2">
+        <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="img-responsive rounded-circle employee-detail-img" />
+    </div>
+    <div class="col-10 row">
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Employee ID</label>
+                <div class="col-sm-8">
+                    <label type="text" class="form-control-plaintext">@Employee.EmployeeId</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">First name</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.FirstName</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Last name</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.LastName</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Birthdate</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.BirthDate.ToShortDateString()</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.Email</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Street</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.Street</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Zip</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.ZipCode</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">City</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.City</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Phone number</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.PhoneNumber</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Gender</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.Gender</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Smoker</label>
+                <div class="col-sm-8">
+
+                    @if (Employee.Smoker)
+                    {
+                        <label type="text" readonly class="form-control-plaintext">Yes</label>
+                    }
+                    else
+                    {
+                        <label type="text" readonly class="form-control-plaintext">No</label>
+
+                    }
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Joined us</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.JoinedDate?.ToShortDateString()</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Left us</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Employee.ExitDate?.ToShortDateString()</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string EmployeeId { get; set; }
+    public Employee Employee { get; set; } = new Employee();
+
+    protected override Task OnInitializedAsync()
+    {
+
+        InitialiseCountries();
+        InitialiseJobCategories();
+        InitialiseEmployees();
+
+        Employee = Employees.FirstOrDefault(e => e.EmployeeId == int.Parse(EmployeeId));
+
+
+        return base.OnInitializedAsync();
+    }
+
+    public IEnumerable<Employee> Employees { get; set; }
+
+    private List<Country> Countries { get; set; }
+
+    private List<JobCategory> JobCategories { get; set; }
+
+    private void InitialiseJobCategories()
+    {
+        JobCategories = new List<JobCategory>()
+    {
+            new JobCategory{ JobCategoryId = 1, JobCategoryName = "Coffee research" },
+            new JobCategory{ JobCategoryId = 2, JobCategoryName = "Sales" },
+            new JobCategory{ JobCategoryId = 3, JobCategoryName = "Management" },
+            new JobCategory{ JobCategoryId = 4, JobCategoryName = "Store Staff" },
+            new JobCategory{ JobCategoryId = 5, JobCategoryName = "Finance" },
+            new JobCategory{ JobCategoryId = 6, JobCategoryName = "QA" },
+            new JobCategory{ JobCategoryId = 7, JobCategoryName = "IT" },
+            new JobCategory{ JobCategoryId = 8, JobCategoryName = "Cleaning" },
+            new JobCategory{ JobCategoryId = 9, JobCategoryName = "Bakery" },
+        };
+    }
+
+    private void InitialiseCountries()
+    {
+        Countries = new List<Country>
+    {
+            new Country { CountryId = 1, Name = "UK" },
+            new Country { CountryId = 2, Name = "Belgium" },
+            new Country { CountryId = 3, Name = "US" },
+            new Country { CountryId = 4, Name = "Japan" },
+            new Country { CountryId = 5, Name = "China" },
+            new Country { CountryId = 6, Name = "France" },
+            new Country { CountryId = 7, Name = "Brazil" },
+            new Country { CountryId = 8, Name = "Russia" },
+
+        };
+    }
+
+    private void InitialiseEmployees()
+    {
+        var employee1 = new Employee
+        {
+            CountryId = 1,
+            MartialStatus = MartialStatus.Single,
+            BirthDate = new DateTime(1999, 3, 8),
+            City = "Newquay",
+            Email = "John@Testman.com",
+            EmployeeId = 1,
+            FirstName = "John",
+            LastName = "Testman",
+            Gender = Gender.Male,
+            PhoneNumber = "0123457890",
+            Smoker = false,
+            Street = "Grote Markt 1",
+            ZipCode = "LN1 0AB",
+            JobCategoryId = 1,
+            Comment = "Lorem Ipsum",
+            ExitDate = null,
+            JoinedDate = new DateTime(2025, 3, 1)
+        };
+
+        var employee2 = new Employee
+        {
+            CountryId = 1,
+            MartialStatus = MartialStatus.Single,
+            BirthDate = new DateTime(1998, 3, 8),
+            City = "London",
+            Email = "Athna@Devine.com",
+            EmployeeId = 2,
+            FirstName = "Athna",
+            LastName = "Devine",
+            Gender = Gender.Female,
+            PhoneNumber = "09876543210",
+            Smoker = false,
+            Street = "221B Bakery Close",
+            ZipCode = "QI5 9ZB",
+            JobCategoryId = 5,
+            Comment = "Lorem Ipsum",
+            ExitDate = null,
+            JoinedDate = new DateTime(2021, 6, 15)
+        };
+        Employees = new List<Employee> { employee1, employee2 };
+    }
+
+} 

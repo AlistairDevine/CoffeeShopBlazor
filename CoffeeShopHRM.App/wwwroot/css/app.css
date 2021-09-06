@@ -104,8 +104,9 @@ nav {
     color: white;
 }
 
-#page-content-wrapper {
+#page-content-wrapper, .page-content-wrapper {
     min-width: 100vw;
+    width: 100%;
 }
 
 .container-fluid {
@@ -121,7 +122,7 @@ nav {
         margin-left: 0;
     }
 
-    #page-content-wrapper {
+    #page-content-wrapper, .page-content-wrapper {
         min-width: 0;
         width: 100%;
     }
