@@ -1,0 +1,17 @@
+﻿@using Bunit
+@using Xunit;
+
+@code {
+        [Fact]
+        public void IndexComponentRenders()
+        {
+            //Arrange
+            using var ctx = new TestContext();
+
+            //Act
+            var cut = ctx.Render(@<Index />);
+
+            //Assert
+            cut.MarkupMatches(@<h1 class="page-title">Welcome to Coffee Shop HRM!</h1>);
+        }
+}
